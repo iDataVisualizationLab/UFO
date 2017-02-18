@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='/Volumes/TOSHIBA EXT/2016/Skytree/eclipseKepler/.eclipseextension' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1.0.0'>
+  <properties size='3'>
+    <property name='p2.timestamp' value='1475819230333'/>
+    <property name='org.eclipse.update.site.policy' value='USER-EXCLUDE'/>
+    <property name='org.eclipse.update.site.list' value=''/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='1'>
+    <artifact classifier='osgi.bundle' id='dch.eclipse.EclipseP5Exporter' version='0.2.4'>
+      <properties size='2'>
+        <property name='artifact.size' value='7980291'/>
+        <property name='download.size' value='7980291'/>
+      </properties>
+      <repositoryProperties size='2'>
+        <property name='artifact.reference' value='file:/Volumes/TOSHIBA%20EXT/2016/Skytree/eclipseKepler/plugins/dch.eclipse.EclipseP5Exporter_0.2.4.jar'/>
+        <property name='file.name' value='/Volumes/TOSHIBA EXT/2016/Skytree/eclipseKepler/plugins/dch.eclipse.EclipseP5Exporter_0.2.4.jar'/>
+      </repositoryProperties>
+    </artifact>
+  </artifacts>
+</repository>
