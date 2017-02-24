@@ -1,4 +1,8 @@
 package main;
+import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 /*
  * UFO
  *
@@ -13,19 +17,15 @@ package main;
  * for the specific language governing rights and limitations under the License.
  */
 import java.util.Date;
-import java.awt.Color;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
-import processing.core.*;
-
-import com.modestmaps.*;
+import com.modestmaps.InteractiveMap;
 import com.modestmaps.core.Point2f;
 import com.modestmaps.geo.Location;
-import com.modestmaps.providers.Google;
 import com.modestmaps.providers.Microsoft;
-import com.modestmaps.providers.Yahoo;
+
+import processing.core.PApplet;
+import processing.core.PFont;
+import processing.core.PImage;
 
 
 public class MainUFO_Version_3_0 extends PApplet {
@@ -1107,12 +1107,13 @@ public class MainUFO_Version_3_0 extends PApplet {
 				&& !detailsButton.s 
 				&& !relButton.b
 				&& !relButton.s){
-			WordCount wc = new WordCount(30);
+			WordCount wc = new WordCount(10); //Amit changed from 30 to  10
 			
 	   // Amit, here is how I process the rectangle selection (GREEN BOX)
 	   // I grasp all descriptions of UFO sighting with the rectangle area (by mouse dragging) on tha map 		
 			wc.countMainUFO(); 
-			wordCloud = new WordCloud(wc.wordArray, wc.counts, this, this.width-280,this.width,70,this.height-60, false);
+			//wordCloud = new WordCloud(wc.wordArray, wc.counts, this, this.width-280,this.width,70,this.height-60, false);
+			wordCloud = new WordCloud(wc.wordArray, wc.counts, this, this.width-280,this.width,40,this.height-30, false);
 		}
 		
 		for (int i=0;i<paralellCoordinate.length;i++){
@@ -1281,5 +1282,6 @@ public class MainUFO_Version_3_0 extends PApplet {
 			}
 		}
 	}
-		
+	
+	
 }

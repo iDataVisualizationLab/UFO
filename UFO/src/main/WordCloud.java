@@ -6,7 +6,6 @@ package main;
  * For more information: http://processing.org/discourse/yabb2/YaBB.pl?num=1214504959
  */
 import java.awt.Color;
-import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PFont;
