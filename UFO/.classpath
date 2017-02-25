@@ -5,8 +5,8 @@
 	<classpathentry kind="lib" path="lib/controlP5.jar"/>
 	<classpathentry kind="lib" path="lib/core.jar"/>
 	<classpathentry kind="lib" path="lib/modestmaps.jar"/>
-	<classpathentry kind="lib" path="D:/TTU/Dr.Dang/gnu-trove-1.0.2.jar/gnu-trove-1.0.2.jar"/>
-	<classpathentry kind="lib" path="D:/TTU/Dr.Dang/mallet-2.0.8/dist/mallet.jar" sourcepath="/cBioPortal"/>
-	<classpathentry kind="lib" path="D:/TTU/Dr.Dang/commons-io-2.5-bin/commons-io-2.5/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/gnu-trove-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/mallet.jar" sourcepath="/cBioPortal"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
