@@ -35,10 +35,11 @@ import cc.mallet.types.LabelSequence;
 
 
 public class WordCount {
+	public static int numTopics=10 ;
 	public int nWords ;
 	public String[] wordArray; 
 	public int[] counts; 
-	
+	List<TopicIdvl> listTopics;
 	// Amit added topic array
 	public String[] topicArray; 
 	public int[] topicCount; 
@@ -51,6 +52,7 @@ public class WordCount {
 			wordArray[i] = "";
 			counts[i] =0;
 		}
+		listTopics = null;
 	}
 	public void countMainUFO() {
 		Set stopWords = readStopWords();
@@ -60,7 +62,7 @@ public class WordCount {
 		for (int u = 0; u < main.MainUFO_Version_3_0.numUFO; u++) {
 			if (main.MainUFO_Version_3_0.isUFOselected[u]){
 				if (main.MainUFO_Version_3_0.phrases[u]==null) continue;
-				System.out.println("Please look here, Amit: "+main.MainUFO_Version_3_0.desUFO[u]);
+			//	System.out.println("Please look here, Amit: "+main.MainUFO_Version_3_0.desUFO[u]);
 				//System.out.println(main.MainUFO_Version_3_0.phrases[u]);
 				
 				phrasesList.add(main.MainUFO_Version_3_0.desUFO[u]);
@@ -101,8 +103,16 @@ public class WordCount {
 			}
 		}
 		try {
-			if(phrasesList.size() > 0)
-				topicModeling(phrasesList);
+			if(phrasesList.size() > 0){
+				listTopics = topicModeling(phrasesList);
+				for(TopicIdvl m :  listTopics){   	  
+			    	//  System.out.println("m="+m+" topicArray="+topicArray);
+			    	//  topicArray[i] = m.getTopicString();
+			    	//topicCount[i] = Integer.parseInt(m.getTopicDist()*100);
+			    	  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
+			     }
+			}
+				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -230,8 +240,10 @@ public class WordCount {
 		}
 		return results;
 	}
-	private String[] topicModeling(List<String> phraseListSelected) throws IOException{
-	  StringBuilder inputData =  new StringBuilder();
+//	private String[] topicModeling(List<String> phraseListSelected) throws IOException{	
+	private List<TopicIdvl> topicModeling(List<String> phraseListSelected) throws IOException{
+		
+	StringBuilder inputData =  new StringBuilder();
 	  for(String phrase : phraseListSelected){
 		  inputData.append(phrase);
 		  inputData.append("\n");
@@ -245,7 +257,7 @@ public class WordCount {
        pipeList.add(new CharSequenceLowercase() );
        pipeList.add( new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")) );
       // pipeList.add( new TokenSequenceRemoveStopwords(new File("C:\\Users\\nisha\\mallet-2.0.8\\stoplists\\en.txt"), "UTF-8", false, false, false) );
-       pipeList.add( new TokenSequenceRemoveStopwords(new File("D:\\TTU\\Dr.Dang\\git\\UFO\\UFO\\src\\data\\stopListEnglish.txt"), "UTF-8", false, false, false) );
+       pipeList.add( new TokenSequenceRemoveStopwords(new File("./data/stopListEnglish.txt"), "UTF-8", false, false, false) );
       
        pipeList.add( new TokenSequence2FeatureSequence() );
       InstanceList instances = new InstanceList (new SerialPipes(pipeList));
@@ -258,7 +270,6 @@ public class WordCount {
       // Create a model with 100 topics, alpha_t = 0.01, beta_w = 0.01
       //  Note that the first parameter is passed as the sum over topics, while
       //  the second is the parameter for a single dimension of the Dirichlet prior.
-      int numTopics = 8;
      // ParallelTopicModel model = new ParallelTopicModel(numTopics, 1.0, 0.01);
       ParallelTopicModel model = new ParallelTopicModel(numTopics);
 
@@ -320,23 +331,23 @@ public class WordCount {
          // TopicMapComaprator
           wordArray[topic] = out.toString();
           results[topic] = out.toString();
+         // System.out.println("results[topic]="+results[topic]);
+          
           counts[topic] = topic+1 ;
           tpModel.setTopicString(out.toString().split("\\t")[2]);
           list.add(tpModel);
-        //  System.out.println(out);
+          System.out.println(out);
       }
       Collections.sort(list);
-      int i = 0;
-      for(TopicIdvl m :  list){
-    	  
-    	  topicArray[i] = m.getTopicString();
+      for(TopicIdvl m :  list){   	  
+    	//  System.out.println("m="+m+" topicArray="+topicArray);
+    	//  topicArray[i] = m.getTopicString();
     	//topicCount[i] = Integer.parseInt(m.getTopicDist()*100);
-    	  i++;
-    	  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
+    	//  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
       }
-    	 
+      return list;
       
-      return results;
+     // return results;
       
 	}
 		
