@@ -1,3 +1,6 @@
+
+![ScreenShot](https://github.com/iDataVisualizationLab/UFO/blob/master/images/Figure2.png)
+
 # UFO
-Visualizing and analyzing geospatial and temporal observations are common tasks for many application domains. In this paper, we introduce UFO_tracker, a visual analytics tool for analyzing unidentified flying object sightings from the National UFO Reporting Center. The goal here is to give the user a higher level view of where different types of sightings occur, to investigate whether sightings are increasing or decreasing over time, and to discover the connections between different events which might happen at different geographic areas. Multiple visualization and data mining techniques are combined to make sense the increasingly large UFO reports which get updated hourly. 
-Our initial application targets UFO sighting reports. However, we believe our approach has wider applications in other research domains, such as analyzing text corpus obtained from social media.
+Unidentified Flying Objects, or UFOs, are commonly described as anything that can be seen in the sky but can not be identified as known object. The story of UFOs began in 1947 in the US  when the fast moving, glistening objects were observed from the sky. Inspired by this phenomenon, National UFO Reporting Center (NUFORC), founded by Robert J. Gribble, has been recording this phenomenon (called UFOs sightings) since 1974 bases on user reports. Until now, there are over 100,000 UFOs sightings have been recorded.
+Despite over 70 years of observations and 40 years of data collections, the reported evidences are still uncorroborated. Therefore, the rumors of UFO sightings are still interesting over the years: the UFO really exists?  
