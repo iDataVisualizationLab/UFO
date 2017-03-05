@@ -62,6 +62,7 @@ public class MainUFO_Version_3_0 extends PApplet {
 	public static float wX1 =0, wX2 =0, wY1 = 0, wY2 =0;
 	public PImage airportImage =  this.loadImage("pics/flight.png");
 	public PImage baseImage =  this.loadImage("pics/base.png");
+	public PImage logoImage =  this.loadImage("pics/sm-skytree-logo.png");
 	
 	// all the buttons in one place, for looping:
 	Button[] buttons = {densityButton, kMeansButton, airportButton, militaryButton,  wordCloudButton, sameUFOButton,graphButton };
@@ -475,6 +476,7 @@ public class MainUFO_Version_3_0 extends PApplet {
 			if (!relButton.s && !detailsButton.s)
 				textbox.draw();	
 		}
+		this.image(logoImage, 110, 8, logoImage.width/2, logoImage.height/2);
 		checkMutualExlusiveCondition();
 	}
 	
