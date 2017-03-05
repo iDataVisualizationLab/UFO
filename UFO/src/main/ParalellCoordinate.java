@@ -46,8 +46,8 @@ public class ParalellCoordinate{
 	// This is for the word count
 	public int numWords = 10; 
 	public static int bPoint = -1;
-	
-	public ParalellCoordinate(int id_, float x_, float y_, float size_, String text_){
+	public static PApplet parent  = null;
+	public ParalellCoordinate( int id_, float x_, float y_, float size_, String text_){
 		id = id_;
 		l = 0;
 		if (id_==5)
@@ -436,6 +436,7 @@ public class ParalellCoordinate{
 		
 	public static void checkall() {
 		b =  new ArrayList<Integer>();
+				
 		for (int i=0;i<a.size();i++){
 			int index = a.get(i);
 			boolean isNOTsatified = false;
@@ -485,10 +486,93 @@ public class ParalellCoordinate{
 		for (int s=0;s<paralellCoordinate.length;s++){
 			paralellCoordinate[s].update();
 			paralellCoordinate[s].updateCount();
-		}
-			
+		}		
 	}
 	
+	public static void updateTDA() {
+		b =  new ArrayList<Integer>();
+		
+		// 2017: Update the text cloud and topic modeling
+		for (int i=0;i<main.MainUFO_Version_3_0.isUFOselected.length; i++){
+			main.MainUFO_Version_3_0.isUFOselected[i] = false;
+		}
+				
+		for (int i=0;i<a.size();i++){
+			int index = a.get(i);
+			boolean isNOTsatified = false;
+			for (int s=0;s<paralellCoordinate.length;s++){
+				float min = paralellCoordinate[s].min;
+				float max = paralellCoordinate[s].max;
+				float low = (min+paralellCoordinate[s].lV*(max-min));
+				float high = (min+paralellCoordinate[s].uV*(max-min));
+				if (s==3){
+					if (lon[index]<low || lon[index]>high)
+						isNOTsatified = true;
+				}
+				else if (s==4){
+					if (lat[index]<low || lat[index]>high)
+						isNOTsatified = true;
+				}
+				else if (s==5){
+					low = (min+paralellCoordinate[s].lV*paralellCoordinate[s].lV*(max-min));
+					high = (min+paralellCoordinate[s].uV*paralellCoordinate[s].uV*(max-min));
+					if (dis6[index]<low || dis6[index]>high)
+						isNOTsatified = true;
+				}
+				else if (s==0){
+					Date d = timeUFO[index];
+					long t = d.getTime()/(24*60*60*1000); // number of days from 1/1/1970
+					if (t<low || t>high)
+						isNOTsatified = true;
+				}
+				else if (s==1){
+					Date d = timeUFO[index];
+					long t = d.getMonth()*30+d.getDate(); // rough estimate number of days in a year
+					if (t<low || t>high)
+						isNOTsatified = true;
+				}
+				else if (s==2){
+					Date d = timeUFO[index];
+					long t = d.getHours()*60+d.getMinutes(); // number of minutes in a day
+					if (t<low || t>high)
+						isNOTsatified = true;
+				}
+			}
+			if (!isNOTsatified){
+				b.add(index);
+				// 2017: Update the text cloud and topic modeling
+				main.MainUFO_Version_3_0.isUFOselected[index] = true;
+			}
+		}
+		
+		
+		WordCount wc = new WordCount(30);
+		wc.countMainUFO(); 
+		
+		// Topic modeling **************** BEGIN ****************	
+		if (wc.listTopics!=null){
+			String[] topicArray = new String[WordCount.numTopics];
+			int[] topicCount = new int[WordCount.numTopics];
+			int i=0;
+			for(TopicIdvl m :   wc.listTopics){   	  
+		    	  topicArray[i] = m.getTopicString();
+		    	  topicCount[i] = (int) (m.getTopicDist()*100);
+		    	  System.out.println("i="+i+" count="+topicCount[i]+" topicArray="+topicArray[i]);   	    
+		    	  i++;
+		    	//  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
+		    }
+			MainUFO_Version_3_0.topicCloud = new WTopicCloud(topicArray, topicCount, parent, parent.width/2-180,parent.width-170,parent.height/2+120,parent.height-20, false);
+		}
+		// Topic modeling **************** END	****************
+		
+		MainUFO_Version_3_0.wordCloud = new WordCloud(wc.wordArray, wc.counts, parent, parent.width-300,parent.width,50,parent.height/2, false);
+		
+		
+		for (int s=0;s<paralellCoordinate.length;s++){
+			paralellCoordinate[s].update();
+			paralellCoordinate[s].updateCount();
+		}		
+	}
 	
 		
 }

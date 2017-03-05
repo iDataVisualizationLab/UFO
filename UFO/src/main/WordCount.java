@@ -103,7 +103,7 @@ public class WordCount {
 			}
 		}
 		try {
-			if(phrasesList.size() > 0){
+			if(phrasesList.size() > 2){
 				listTopics = topicModeling(phrasesList);
 				for(TopicIdvl m :  listTopics){   	  
 			    	//  System.out.println("m="+m+" topicArray="+topicArray);
@@ -111,6 +111,9 @@ public class WordCount {
 			    	//topicCount[i] = Integer.parseInt(m.getTopicDist()*100);
 			    	  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
 			     }
+			}
+			else{
+				listTopics = null;
 			}
 				
 		} catch (IOException e) {
@@ -333,8 +336,12 @@ public class WordCount {
           results[topic] = out.toString();
          // System.out.println("results[topic]="+results[topic]);
           
-          counts[topic] = topic+1 ;
-          tpModel.setTopicString(out.toString().split("\\t")[2]);
+          counts[topic] = topic+1;
+          System.out.println("out="+out);
+          if (out.toString().split("\\t").length>=3)
+        	  tpModel.setTopicString(out.toString().split("\\t")[2]);
+          else
+        	  tpModel.setTopicString("");
           list.add(tpModel);
           System.out.println(out);
       }

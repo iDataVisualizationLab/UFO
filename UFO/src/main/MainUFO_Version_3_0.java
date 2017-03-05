@@ -36,6 +36,7 @@ public class MainUFO_Version_3_0 extends PApplet {
 	public double scaleRate = 1.01;
 	// Code used to highlight sighting
 	public static WordCloud wordCloud;
+	public static WTopicCloud topicCloud;
 	
 	// Main buttons
 	public static int x1 = 1;
@@ -400,6 +401,7 @@ public class MainUFO_Version_3_0 extends PApplet {
 		
 		for (int i = 0; i < paralellCoordinate.length; i++) {
 			paralellCoordinate[i].computeminMax();
+			paralellCoordinate[i].parent = this;
 		}	
 		ParalellCoordinate.checkall();
 		pcWord.checkall();
@@ -407,7 +409,7 @@ public class MainUFO_Version_3_0 extends PApplet {
 		
 		detailsButton.setParent(this);
 		relButton.setParent(this);
-	
+		
 		lines = loadStrings("./data/UFO_mainland_clustered_and_chunked_phrases_only_counts.txt");
 		commonPhases = new String[lines.length];
 		commonPhasesCount = new int[lines.length];
@@ -512,22 +514,26 @@ public class MainUFO_Version_3_0 extends PApplet {
 		    	else if (relButton.s){
 		    		rect(WordCloud.xLeft.value-10, 0, this.width-(WordCloud.xLeft.value-10), this.height);
 		    		WordCloud.xLeft.target(100);
+		    		WTopicCloud.xLeft.target(100);
 		    	}
 		    	else{
 		    		WordCloud.xLeft.target(wordCloud.x1);
+		    		if (topicCloud!=null)
+		    			WTopicCloud.xLeft.target(topicCloud.x1);
 		    		if (!isDragging){
-		    			rect(WordCloud.xLeft.value-10, 0, this.width-(WordCloud.xLeft.value-10), this.height);
+		    			rect(WTopicCloud.xLeft.value-10, 0, this.width-(WTopicCloud.xLeft.value-10), this.height);
 		    			wordCloud.draw(this);
+		    			topicCloud.draw(this);
 		    		}	
 		    	}
 	    		WordCloud.xLeft.update();
+	    		WTopicCloud.xLeft.update();
 	    		detailsButton.x = this.width-100;
 	    		relButton.x = this.width-200;
 	    		detailsButton.draw();
 	    		detailsButton.mouseOver();
 	    		relButton.draw();
-		    	relButton.mouseOver();
-		    
+		    	relButton.mouseOver();    
 			}
 		}
 		this.stroke(0,255,0);
@@ -630,6 +636,7 @@ public class MainUFO_Version_3_0 extends PApplet {
 					drawSliders.drawSightings(i);
 			}
 		}
+		
 		
 		// Draw sighting text search
 		if (wordCloudButton.s && !relButton.s && !detailsButton.s){
@@ -862,11 +869,13 @@ public class MainUFO_Version_3_0 extends PApplet {
 			this.textSize(14);
 			this.textAlign(PApplet.LEFT);
 			this.fill(0,200,0);
-			this.text("Total selected sightings = "+ParalellCoordinate.a.size(), 400, 600);
+			this.text("Total selected sightings = "+ParalellCoordinate.a.size(), 220, 550);
 			this.fill(150);
-			this.text("Satisfied sightings = "+ParalellCoordinate.b.size(), 400, 620);
+			this.text("Satisfied sightings = "+ParalellCoordinate.b.size(), 220, 570);
 			
 		}
+		WTopicCloud.xLeft.target(800);
+		topicCloud.draw(this);
 	}
 	public void drawPolyline(int index, Color c, int wei) {
 		this.stroke(c.getRGB());
@@ -1124,16 +1133,27 @@ public class MainUFO_Version_3_0 extends PApplet {
 			    	  i++;
 			    	//  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
 			    }
-				wordCloud = new WordCloud(topicArray, topicCount, this, this.width-680,this.width,70,this.height-60, false);
+				topicCloud = new WTopicCloud(topicArray, topicCount, this, this.width-520,this.width-10,this.height/2+160,this.height-10, false);
 			}
 			// Topic modeling **************** END	****************
 			
-			//wordCloud = new WordCloud(wc.wordArray, wc.counts, this, this.width-280,this.width,40,this.height-30, false);
+			wordCloud = new WordCloud(wc.wordArray, wc.counts, this, this.width-300,this.width,50,this.height/2, false);
+		}
+		else if (wordCloudButton.s  && WordCloud.b<0 	
+				&& !detailsButton.b 
+				&& !detailsButton.s 
+				&& !relButton.b
+				&& relButton.s){
+			ParalellCoordinate.updateTDA();
+			WTopicCloud.xLeft.target(800);
+			topicCloud.draw(this);
 		}
 		
 		for (int i=0;i<paralellCoordinate.length;i++){
 			paralellCoordinate[i].checkSelectedSlider2();
 		}
+		
+		
 		isDragging = false;
 	}
 
@@ -1212,6 +1232,7 @@ public class MainUFO_Version_3_0 extends PApplet {
 			if (buttons[i].mouseClicked()){
 				isUFOselected = new boolean[numUFO]; // remove the effect of same UFO.
 				WordCloud.xLeft.set(wordCloud.x1);
+				WTopicCloud.xLeft.set(wordCloud.x1);
 				relButton.s = false;
 				detailsButton.s = false;
 				wX1= mouseX;
@@ -1237,17 +1258,22 @@ public class MainUFO_Version_3_0 extends PApplet {
 				}
 				WordCount wc = new WordCount(30);
 				wc.countMainUFO(); 
-				//wordCloud = new WordCloud(wc.wordArray, wc.counts, this, this.width-280,this.width,70,this.height-60, false);
-				String[] topicArray = new String[WordCount.numTopics];
-				int i=0;
-				for(TopicIdvl m :   wc.listTopics){   	  
-			    	  topicArray[i] = m.getTopicString();
-			    	  System.out.println("i="+i+" topicArray="+topicArray[i]);
-					    
-			    	  i++;
-			    	//topicCount[i] = Integer.parseInt(m.getTopicDist()*100);
-			    	//  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
-			     }
+				// Topic modeling **************** BEGIN ****************	
+				if (wc.listTopics!=null){
+					String[] topicArray = new String[WordCount.numTopics];
+					int[] topicCount = new int[WordCount.numTopics];
+					int i=0;
+					for(TopicIdvl m :   wc.listTopics){   	  
+				    	  topicArray[i] = m.getTopicString();
+				    	  topicCount[i] = (int) (m.getTopicDist()*100);
+				    	  System.out.println("i="+i+" count="+topicCount[i]+" topicArray="+topicArray[i]);   	    
+				    	  i++;
+				    	//  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
+				    }
+					topicCloud = new WTopicCloud(topicArray, topicCount, this, this.width-520,this.width-10,this.height/2+160,this.height-10, false);
+				}
+				// Topic modeling **************** END	****************
+				
 			    
 				wordCloud = new WordCloud((String[]) wc.listTopics.toArray(), wc.counts, this, this.width-480,this.width,70,this.height-60, false);
 			}
@@ -1289,11 +1315,17 @@ public class MainUFO_Version_3_0 extends PApplet {
 		else{
 			if (wordCloudButton.s && wordCloud!=null){
 				wordCloud.mouseClicked();
+				if (topicCloud!=null)
+					topicCloud.mouseClicked();
 			}
 		}
 	}
 	
 	public void keyPressed() {
+		if (key == 't' || key == 't') {
+			System.out.println("Updating");
+			
+		}
 		if (wordCloudButton.s){
 			textbox.keyPressed();
 			//if (s>=0)

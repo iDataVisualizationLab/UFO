@@ -94,7 +94,7 @@ public class WordCloud{
 			this.y = y + parent.random(0, y2-y1-150);
 			
 			large_font = 40;
-			small_font = 14;
+			small_font = 10;
 			float dif = large_font - small_font;
 			if (maxCount*2<dif){
 				large_font = small_font+maxCount*2;
@@ -103,7 +103,11 @@ public class WordCloud{
 			font_size = (PApplet.map(count, 0, maxCount, small_font, large_font));
 			
 			float v = PApplet.map(count, 0, maxCount, 0, 1);
-			color = new Color(0,0.3f+v*0.7f,0);
+			if (v<0 || v>1){	
+				color = new Color(0,0.3f,0);
+			}
+			else
+				color = new Color(0,0.3f+v*0.7f,0);
 			
 			word = str;
 			parent.textFont(font2, font_size);

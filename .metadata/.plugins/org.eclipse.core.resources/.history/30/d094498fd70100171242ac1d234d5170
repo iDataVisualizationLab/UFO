@@ -1,0 +1,164 @@
+package main;
+import java.awt.Color;
+
+import processing.core.PApplet;
+import static main.ParalellCoordinate.b;
+
+
+public class ParalellCoordinateWord{
+	public int pair =-1;
+	public float x,y;
+	
+	public float h; 
+	public float l =-1;
+	public float u =-1;
+	
+	public static Color c1  = new Color(130,130,80);
+	public static Color c2  = new Color(160,80,80);
+	
+	public int bSlider = -1;
+	public int sSlider = -1;
+	public int gap = 1;
+	public String text;
+	
+	int id;
+	
+	int numSec = 10;
+	// This is for the word count
+	public static int numWords = 10; 
+	public String[] wordArray; 
+	public int[] counts; 
+	public int otherCount = 0; 
+	
+	public float[] yy = new float[numWords];
+	public float[] hh = new float[numWords];
+	public String bWord = null;
+	
+	
+	public ParalellCoordinateWord(int id_, float x_, float y_, float size_, String text_){
+		id = id_;
+		l = 0;
+		u = 230;
+		x= x_;
+		y= y_;
+		h= size_;
+		text = text_;	
+	}
+		
+	
+
+	public void draw(PApplet parent){
+		checkBrushingSlider(parent);
+		parent.stroke(255);
+		parent.strokeWeight(0.1f);
+		parent.line(x, y, x, y+h);
+		
+		parent.fill(255,255,255);
+		parent.textAlign(PApplet.CENTER);
+		parent.textSize(14);
+		parent.text(text,x,y-20);
+		
+		for (int i=0;i<numWords;i++){
+			yy[i] = y+(h/numWords)*(i+0.75f);
+			float largeFont = 20;
+			
+			float font_size = PApplet.map(counts[i], 0, counts[0], 10, largeFont);
+			if (id==5 && i==numWords-1)
+				font_size = PApplet.map(otherCount, 0, counts[0], 10, largeFont);
+			hh[i] = font_size;
+			parent.textSize(font_size);
+			parent.textAlign(PApplet.CENTER);
+			if (id==6)
+				parent.textAlign(PApplet.LEFT);
+				
+			parent.fill(0,255,0);
+			if (id==5 && i==numWords-1)
+				parent.text("Other",x,yy[i]);
+			else		
+				parent.text(wordArray[i],x+1,yy[i]);
+			
+			float word_width = parent.textWidth(wordArray[i]);
+			if (id==5){
+				if (x-word_width/2<=parent.mouseX && parent.mouseX<x+word_width/2
+						&& yy[i]-font_size/2<= parent.mouseY && parent.mouseY<=yy[i]+font_size/2){
+					bWord = wordArray[i];
+					parent.fill(255,0,0);
+					if (i==numWords-1)
+						parent.text("Other",x+1,yy[i]);
+					else		
+						parent.text(wordArray[i],x+1,yy[i]);
+				}
+			}	
+			else if (id==6){
+				if (x<=parent.mouseX && parent.mouseX<x+word_width
+						&& yy[i]-font_size/2<= parent.mouseY && parent.mouseY<=yy[i]+font_size/2){
+					bWord = wordArray[i];
+					parent.fill(255,0,0);
+					parent.text(wordArray[i],x+1,yy[i]);
+				}
+			}
+			
+		}
+		
+	}
+	
+	
+	public void checkBrushingSlider(PApplet parent) {
+		float yy1 = y+l;
+		float yy2 = y+u;
+		int mX = parent.mouseX;
+		int mY = parent.mouseY;
+		
+		if (x-10<mX && mX < x+10 && yy1-20<mY && mY<yy1+10){
+			bSlider =0;
+			return;
+		}	
+		else if (x-10<mX && mX < x+10 && yy2-10<mY && mY<yy2+20){
+			bSlider =1; 
+			return;
+		}	
+		bSlider =-1;
+	}
+	
+	public void checkSelectedSlider1() {
+		sSlider = bSlider;
+	}
+	public void checkSelectedSlider2() {
+		sSlider = -1;
+	}
+	public int checkSelectedSlider3(PApplet parent) {
+		if (sSlider==0){
+			l += (parent.mouseY - parent.pmouseY);
+			if (l>=u) l=u-1;
+			if (l<0)  l=0;
+		}	
+		else if (sSlider==1){
+			u += (parent.mouseY - parent.pmouseY);
+			if (u<=l) u=l+1;
+			if (u>h)  u=h;
+		}	
+		
+		// update sliders
+		checkall();
+		return sSlider;
+	}
+	
+	
+		
+	public void checkall() {
+		WordCount wc = new WordCount(numWords);
+		if (id==5){
+			wc.countShape(b);	
+			int sum=0;
+			for (int i=0;i<numWords;i++){
+				sum+= wc.counts[i];
+			}
+			otherCount=b.size()-sum;
+		}	
+		else if (id==6)
+			wc.countSelectedList(b);
+		wordArray =  wc.wordArray;
+		counts = wc.counts;
+	}
+		
+}
