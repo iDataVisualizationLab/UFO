@@ -50,7 +50,10 @@ public class ParalellCoordinate{
 	public ParalellCoordinate(int id_, float x_, float y_, float size_, String text_){
 		id = id_;
 		l = 0;
-		u = 300;
+		if (id_==5)
+			u=100;
+		else 
+			u = 400;
 		x= x_;
 		y= y_;
 		h= size_;
