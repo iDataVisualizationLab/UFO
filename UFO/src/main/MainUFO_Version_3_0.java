@@ -1114,7 +1114,8 @@ public class MainUFO_Version_3_0 extends PApplet {
 	   // I grasp all descriptions of UFO sighting with the rectangle area (by mouse dragging) on tha map 		
 			wc.countMainUFO(); 
 			
-			// Topic modeling **************** BEGIN ****************		
+			// Topic modeling **************** BEGIN ****************	
+			if (wc.listTopics!=null){
 				String[] topicArray = new String[WordCount.numTopics];
 				int[] topicCount = new int[WordCount.numTopics];
 				int i=0;
@@ -1126,6 +1127,7 @@ public class MainUFO_Version_3_0 extends PApplet {
 			    	//  System.out.println(m.getTopicId()+ "\t"+m.getTopicDist()+"\t"+m.getTopicString());
 			    }
 				wordCloud = new WordCloud(topicArray, topicCount, this, this.width-680,this.width,70,this.height-60, false);
+			}
 			// Topic modeling **************** END	****************
 			
 			//wordCloud = new WordCloud(wc.wordArray, wc.counts, this, this.width-280,this.width,40,this.height-30, false);
