@@ -6,7 +6,7 @@ UFO_tracker is a visual analytics tool for analyzing unidentified flying object 
 
 ## User story
 Our text analytics window provides users a summary of topics in extracted from the large corpus of sighting descriptions. Popular topics are extracted using Latent Dirichlet Allocation (LDA) method along with Java-based topic modeling package
-In this graph, user can easily  spot the  correlations  between  the  selected  sightings
+In this graph, user can easily  spot the  correlations  between  the  selected  sightings. As shown in Figure below, top 10 shown popular topics give recommendation of general topic of UFO sightings (as depicted in the Figure below)
 ![Everything Is AWESOME](https://github.com/iDataVisualizationLab/UFO/blob/master/images/AZ.png)
 
 
