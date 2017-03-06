@@ -1,10 +1,8 @@
-### UFOTracker: Visualizing UFO sightings
+# UFOTracker: Visualizing UFO sightings
+UFO_tracker is a visual analytics tool for analyzing unidentified flying object sightings from the National UFO Reporting Center. The goal here is to give the user a higher level view of where different types of sightings occur, to investigate whether sightings are increasing or decreasing over time, and to discover the connections between different events which might happen at different geographic areas. Multiple visualization and data mining techniques are combined to make sense the increasingly large UFO reports which get updated hourly.  
 ![ScreenShot](https://github.com/iDataVisualizationLab/UFO/blob/master/images/maingit.png)
 
-## What is UFOTracker?
-UFO_tracker is a visual analytics tool for analyzing unidentified flying object sightings from the National UFO Reporting Center. The goal here is to give the user a higher level view of where different types of sightings occur, to investigate whether sightings are increasing or decreasing over time, and to discover the connections between different events which might happen at different geographic areas. Multiple visualization and data mining techniques are combined to make sense the increasingly large UFO reports which get updated hourly.  
-
-## How it is implemented? 
+## Implemenation
 UFOTracker is implemented in [Processing](http://processing.org) and Java <br>
 Links for implementation: <br>
 a. Linux operating system - please click [Linux](http://myweb.ttu.edu/vinhtngu/UFO/application.linux.zip).</br>
