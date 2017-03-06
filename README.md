@@ -7,6 +7,6 @@ Despite over 70 years of observations and 40 years of data collections, the repo
 
 ## User story
 
-[![Everything Is AWESOME](https://github.com/iDataVisualizationLab/UFO/blob/master/images/AZ.png)]
+[![Everything Is AWESOME](https://github.com/iDataVisualizationLab/UFO/blob/master/images/AZ.png)
 
 ## References
