@@ -1,4 +1,4 @@
-
+### UFOTracker: Visualizing UFO sightings
 ![ScreenShot](https://github.com/iDataVisualizationLab/UFO/blob/master/images/maingit.png)
 
 ## UFO
