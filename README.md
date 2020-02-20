@@ -4,8 +4,8 @@ UFO_tracker is a visual analytics tool for analyzing unidentified flying object 
 
 ### Implemenation
 UFOTracker is implemented in [Processing](http://processing.org) and Java <br>
-Please clone or download the whole directory for instruction
-Users can rebuild the project, modify it, run it or export it to any operating system including linux, windows or MacOS
+Please clone or download the whole directory for instruction <br>
+Users can rebuild the project, modify it, run it or export it to any operating system including linux, windows or MacOS <br>
 This directory provides built versions on Linux and Windows which can be found on the folders: <br>
 a. Linux operating system - please follow UFO/application.linux .</br>
 b. Windows operating system - please click  UFO/application.windows . The running file is MainUFO_Version_3_0.exe</br>
