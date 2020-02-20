@@ -13,7 +13,7 @@ b. Windows operating system - please click  UFO/application.windows . The runnin
 This is a java application, so it requires java sdk to be installed on your machine. </br>
 Please download java sdk via: https://www.oracle.com/java/technologies/javase-jdk13-downloads.html </br>
 
-After installation, add your installed java sdk bin path to your system variable
+After installation, add your installed java sdk bin path to your system variable. Example can be found: https://www.youtube.com/watch?v=dUqfhoss8MI
 
 
  
