@@ -4,10 +4,18 @@ UFO_tracker is a visual analytics tool for analyzing unidentified flying object 
 
 ### Implemenation
 UFOTracker is implemented in [Processing](http://processing.org) and Java <br>
-Links for implementation: <br>
-a. Linux operating system - please click [Linux](http://myweb.ttu.edu/vinhtngu/UFO/application.linux.zip).</br>
-b. Windows operating system - please click [Windows](http://myweb.ttu.edu/vinhtngu/UFO/application.windows.zip).</br>
-c. MacOS operating system - please click [MacOS](http://myweb.ttu.edu/vinhtngu/UFO/applicationMac.zip).
+Please clone or download the whole directory for instruction
+Users can rebuild the project, modify it, run it or export it to any operating system including linux, windows or MacOS
+This directory provides built versions on Linux and Windows which can be found on the folders: <br>
+a. Linux operating system - please follow UFO/application.linux .</br>
+b. Windows operating system - please click  UFO/application.windows . The running file is MainUFO_Version_3_0.exe</br>
+
+This is a java application, so it requires java sdk to be installed on your machine. </br>
+Please download java sdk via: https://www.oracle.com/java/technologies/javase-jdk13-downloads.html </br>
+
+After installation, add your installed java sdk bin path to your system variable
+
+
  
 ### User story
 Our text analytics window provides users a summary of topics in extracted from the large corpus of sighting descriptions. Popular topics are extracted using Latent Dirichlet Allocation (LDA) method along with Java-based topic modeling package
